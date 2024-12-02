@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'; //Importing card component from bootstr
 
 function EntryItem(props) {
   useEffect(() => {
-    console.log("Entry Item:", props.myentry);
+    console.log("Entry Item:", props.myEntry);
   }, [props.myentry]); // Only run this effect when the mymovie prop changes
   //Creates a bootsrap card that displays the movie poster, year
   return (
@@ -14,10 +14,10 @@ function EntryItem(props) {
         {/* Card body displays the movies image and year */}
         <Card.Body>
           <blockquote className="blockquote mb-0">
-            <footer>{props.myEntry.Distance}</footer>
-            <footer>{props.myEntry.Weight}</footer>
-            <footer>{props.myEntry.CaloriesOut}</footer>
-            <footer>{props.myEntry.CaloriesIn}</footer>
+            <footer>{props.myEntry.distance}</footer>
+            <footer>{props.myEntry.weight}</footer>
+            <footer>{props.myEntry.caloriesOut}</footer>
+            <footer>{props.myEntry.caloriesIn}</footer>
           </blockquote>
         </Card.Body>
       </Card>
