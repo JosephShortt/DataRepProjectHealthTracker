@@ -16,8 +16,8 @@ function EntryItem(props) {
           <blockquote className="blockquote mb-0">
             <footer>{props.myEntry.Distance}</footer>
             <footer>{props.myEntry.Weight}</footer>
-            <footer>{props.myEntry.CaloriesBurned}</footer>
-            <footer>{props.myEntry.CaloriesConsumed}</footer>
+            <footer>{props.myEntry.CaloriesOut}</footer>
+            <footer>{props.myEntry.CaloriesIn}</footer>
           </blockquote>
         </Card.Body>
       </Card>

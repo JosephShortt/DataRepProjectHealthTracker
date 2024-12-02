@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 
 function AddHealthData() {
@@ -12,7 +13,19 @@ function AddHealthData() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(steps,distance,weight,caloriesIn,caloriesOut);
+    console.log(`Steps: ${steps}, Distance: ${distance}, Weight: ${weight}, CaloriesIn: ${caloriesIn}, CaloriesOut: ${caloriesOut}`);
+
+    const entry = {
+      steps: steps,
+      distance: distance,
+      weight: weight,
+      caloriesIn: caloriesIn,
+      caloriesOut: caloriesOut
+    };
+
+    axios.post('http://localhost:4000/api/entries', entry)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
   }
 
   return (
@@ -64,7 +77,7 @@ function AddHealthData() {
           />
         </div>
 
-        <input type="submit" value="Enter Steps" />
+        <input type="submit" value="Enter Health Data" />
       </form>
     </div>
   );
