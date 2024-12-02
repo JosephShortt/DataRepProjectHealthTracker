@@ -53,6 +53,17 @@ app.get('/api/entries', async (req, res) => {
     res.send(entry);
   });
 
+// Defining a DELETE route to handle requests for deleting a movie by its ID
+app.delete('/api/entry/:id', async (req, res) => {
+  
+    console.log('Deleting entry with ID:', req.params.id);
+    // Using the MovieModel to find and delete the movie with the given ID
+    // The ID is extracted from the request parameters (req.params.id)
+    const entry = await EntryModel.findByIdAndDelete(req.params.id);
+    res.status(200).send({ message: "Entry deleted successfully", entry });
+    
+  });
+
 // Define a POST endpoint to receive and log a new movie
 app.post('/api/entries', async (req, res) => {
 
