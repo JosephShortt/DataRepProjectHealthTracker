@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/Home';
 import AddHealthData from './components/CreateHealth';
 import ReadHealthData from './components/ReadHealth';
+import Update from './components/update';
 function App() {
   return (
     <Router>
@@ -12,6 +13,8 @@ function App() {
       <Route path="/home" element={<Home/>} />
       <Route path="/addHealth" element={<AddHealthData/>} />
       <Route path="/readHealth" element={<ReadHealthData/>} />
+      <Route path='/update/:id' element={<Update />} />
+
     </Routes>
   </Router>
   );

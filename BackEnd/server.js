@@ -48,6 +48,11 @@ app.get('/api/entries', async (req, res) => {
     res.json(entry);
   });
 
+  app.put('/api/entry/:id', async (req, res) => {
+    let entry = await EntryModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.send(entry);
+  });
+
 // Define a POST endpoint to receive and log a new movie
 app.post('/api/entries', async (req, res) => {
 

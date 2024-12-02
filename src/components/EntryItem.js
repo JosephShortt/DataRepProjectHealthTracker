@@ -1,5 +1,7 @@
 import { useEffect } from "react"; // Importing the use effext from react
 import Card from 'react-bootstrap/Card'; //Importing card component from bootstrap
+import { Link } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
 
 function EntryItem(props) {
   useEffect(() => {
@@ -20,6 +22,8 @@ function EntryItem(props) {
             <footer>{props.myEntry.caloriesIn}</footer>
           </blockquote>
         </Card.Body>
+        <Link to={"/update/" + props.myEntry._id} className="btn btn-primary">Update</Link>
+
       </Card>
     </div>
   );
