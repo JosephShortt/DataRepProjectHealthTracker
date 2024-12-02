@@ -1,4 +1,6 @@
 import Entries from "./Entries";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // Array of movie data that will be passed as props to the Movies component
 const data = [
     {
