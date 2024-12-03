@@ -12,6 +12,8 @@ export default function Update(props) {
   const [weight, setWeight] = useState('');
   const [caloriesIn, setCaloriesIn] = useState('');
   const [caloriesOut, setCaloriesOut] = useState('');
+  const [date, setDate] = useState('');
+
   const navigate = useNavigate();
 
 useEffect(() => {
@@ -22,6 +24,7 @@ useEffect(() => {
             setWeight(response.data.weight);
             setCaloriesIn(response.data.caloriesIn);
             setCaloriesOut(response.data.caloriesOut);
+            setDate(response.data.date)
         })
         .catch((error) => {
             console.log(error);
@@ -30,7 +33,7 @@ useEffect(() => {
 
 const handleSubmit = (event) => {
     event.preventDefault();
-    const newEntry = { id, steps, distance, weight, caloriesIn,caloriesOut };
+    const newEntry = { id, steps, distance, weight, caloriesIn,caloriesOut,date };
     axios.put('http://localhost:4000/api/entry/' + id, newEntry)
         .then((res) => {
             console.log(res.data);
@@ -86,6 +89,15 @@ return (
         />
       </div>
 
+      <div>
+        <label for="startDate">Enter Date</label>
+        <input class="form-control" 
+          type="date"
+          value={date}
+          onChange={(e) => {setDate(e.target.value)}}
+        />
+        </div>
+        
       <input type="submit" value="Edit Health Data" />
     </form>
   </div>

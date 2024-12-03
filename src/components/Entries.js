@@ -1,11 +1,17 @@
 import EntryItem from "./EntryItem";
-const Entries = (props)=>{
-    // The map function iterates over each movie in 'myMovies' and returns a MovieItem component for each movie
-    return props.myEntries.map(
-        (entry)=>{
-            return <EntryItem myEntry={entry} key={entry.id}  Reload={props.ReloadData}/>
-        }
+import { Row, Col } from 'react-bootstrap'; // Import Bootstrap grid components
+
+const Entries = (props) => {
+    return (
+      <Row>
+        {props.myEntries.map((entry) => (
+          <Col md={4} key={entry._id} className="mb-4">
+            {/* Each column takes up 4/12 of the row, resulting in 3 columns per row */}
+            <EntryItem myEntry={entry} Reload={props.ReloadData} />
+          </Col>
+        ))}
+      </Row>
     );
-}
+  };
 //Exporting the movies component to be used in read.js
 export default Entries;

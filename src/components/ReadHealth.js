@@ -24,7 +24,6 @@ function ReadHealthData() {
   
     return (
       <div>
-        <h2>This is my Read Component.</h2>
         {/* Pass the fetched movies as a prop (myMovies) to the Movies component for rendering */}
         <Entries myEntries={data} ReloadData={Reload}/>
       </div>

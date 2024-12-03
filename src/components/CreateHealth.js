@@ -8,19 +8,21 @@ function AddHealthData() {
   const [weight, setWeight] = useState('');
   const [caloriesIn, setCaloriesIn] = useState('');
   const [caloriesOut, setCaloriesOut] = useState('');
+  const [date, setDate] = useState('');
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Steps: ${steps}, Distance: ${distance}, Weight: ${weight}, CaloriesIn: ${caloriesIn}, CaloriesOut: ${caloriesOut}`);
+    console.log(`Steps: ${steps}, Distance: ${distance}, Weight: ${weight}, CaloriesIn: ${caloriesIn}, CaloriesOut: ${caloriesOut}, Date: ${date}`);
 
     const entry = {
       steps: steps,
       distance: distance,
       weight: weight,
       caloriesIn: caloriesIn,
-      caloriesOut: caloriesOut
+      caloriesOut: caloriesOut,
+      date: date
     };
 
     axios.post('http://localhost:4000/api/entries', entry)
@@ -42,7 +44,7 @@ function AddHealthData() {
         </div>
 
         <div className="form-group">
-          <label>Enter Distance Covered: </label>
+          <label>Enter Distance Covered(km): </label>
           <input type="text"
             className="form-control"
             value={distance}
@@ -51,7 +53,7 @@ function AddHealthData() {
         </div>
 
         <div className="form-group">
-          <label>Enter Weight: </label>
+          <label>Enter Weight(kg): </label>
           <input type="text"
             className="form-control"
             value={weight}
@@ -75,6 +77,15 @@ function AddHealthData() {
             value={caloriesOut}
             onChange={(e) => { setCaloriesOut(e.target.value) }}
           />
+        </div>
+
+        <div>
+        <label for="date">Enter Date</label>
+        <input class="form-control" 
+          type="date"
+          value={date}
+          onChange={(e) => {setDate(e.target.value)}}
+        />
         </div>
 
         <input type="submit" value="Enter Health Data" />

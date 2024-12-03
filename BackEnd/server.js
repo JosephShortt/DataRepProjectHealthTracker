@@ -29,7 +29,8 @@ const entrySchema = new mongoose.Schema({
     distance: String,
     weight: String,
     caloriesIn: String,
-    caloriesOut: String
+    caloriesOut: String,
+    date:String
 
 });
 //Create a movied model for myMovies
@@ -68,8 +69,8 @@ app.delete('/api/entry/:id', async (req, res) => {
 app.post('/api/entries', async (req, res) => {
 
     console.log("Entry: " + req.body.Steps);
-    const { steps, distance, weight,caloriesIn,caloriesOut } = req.body;
-    const newEntry = new EntryModel({ steps, distance, weight,caloriesIn,caloriesOut });
+    const { steps, distance, weight,caloriesIn,caloriesOut,date } = req.body;
+    const newEntry = new EntryModel({ steps, distance, weight,caloriesIn,caloriesOut,date });
     await newEntry.save();
     res.status(201).json({ message: 'Entry created successfully', entry: newEntry });
 
