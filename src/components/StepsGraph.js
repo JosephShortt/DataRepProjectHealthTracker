@@ -10,7 +10,8 @@ const StepsGraph = ({ entries }) => {
         const formattedData = entries.map(entry => ({
             date: new Date(entry.date),
             steps: parseFloat(entry.steps)
-        }));
+        }))
+            .sort((a, b) => a.date - b.date); // Sort entries by date (ascending order)
 
         // Set dimensions
         const width = 600;
@@ -20,9 +21,10 @@ const StepsGraph = ({ entries }) => {
 
         // Set scales
         const xScale = d3
-            .scaleTime()
-            .domain(d3.extent(formattedData, d => d.date)) // Min and max of dates
-            .range([margin.left, width - margin.right]);
+            .scaleBand()
+            .domain(formattedData.map(d => d.date)) // Map dates to categories
+            .range([margin.left, width - margin.right])
+            .padding(0.2); // Adds padding between bars
 
         const yScale = d3
             .scaleLinear()
@@ -35,46 +37,50 @@ const StepsGraph = ({ entries }) => {
         svg
             .attr('width', width)
             .attr('height', height);
-
-        // Add axes
+        // X axis
         svg.append('g')
             .attr('transform', `translate(0,${height - margin.bottom})`)
-            .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat('%Y-%m-%d')))
+            .call(d3.axisBottom(xScale)
+                .tickFormat(d3.timeFormat('%Y-%m-%d')))
             .selectAll("text")
-            .attr("transform", "rotate(-45)")
+            .attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
 
+        // Add Y axis
         svg.append('g')
-            .attr('transform', `translate(${margin.left},0)`)
+            .attr('transform', `translate(${margin.left}, 0)`)
             .call(d3.axisLeft(yScale));
 
-        // Add line
-        svg.append('path')
-            .datum(formattedData)
-            .attr('fill', 'none')
-            .attr('stroke', 'steelblue')
-            .attr('stroke-width', 2)
-            .attr('d', d3.line()
-                .x(d => xScale(d.date))
-                .y(d => yScale(d.steps))
-            );
+        // Bars
+        svg.selectAll("rect")
+            .data(formattedData)
+            .enter()
+            .append("rect")
+            .attr('x', d => xScale(d.date))
+            .attr('y', d => yScale(d.steps))
+            .attr("width", xScale.bandwidth())
+            .attr('height', d => height - margin.bottom - yScale(d.steps)) // Bar height
+            .attr("fill", "#69b3a2")
+
+
+
 
         //X-Axis Label
         svg.append('text')
-            .attr('x', width / 2) // Center the label horizontally
-            .attr('y', height - margin.bottom + 40) // Position below the X-axis
-            .attr('text-anchor', 'middle') // Center the text
-            .style('font-size', '12px') // Optional: Adjust font size
-            .text('Date'); // Label text
+            .attr('x', width / 2) 
+            .attr('y', height - margin.bottom + 40) 
+            .attr('text-anchor', 'middle') 
+            .style('font-size', '12px') 
+            .text('Date'); 
 
         // Add Y-axis label
         svg.append('text')
             .attr('x', -(height / 2))
-            .attr('y', margin.left - 50) // Position to the left of the Y-axis
-            .attr('transform', 'rotate(-90)') // Rotate the text for vertical orientation
-            .attr('text-anchor', 'middle') // Center the text
-            .style('font-size', '12px') // Optional: Adjust font size
-            .text('Num Of Steps'); // Label text
+            .attr('y', margin.left - 50) 
+            .attr('transform', 'rotate(-90)') 
+            .attr('text-anchor', 'middle') 
+            .style('font-size', '12px') 
+            .text('Num Of Steps'); 
 
         // Add chart title
         svg.append("text")
