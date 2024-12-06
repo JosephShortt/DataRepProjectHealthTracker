@@ -90,7 +90,7 @@ const StepsGraph = ({ entries }) => {
             .enter()
             .append('circle')
             .attr('cx', d => xScale(d.date))
-            .attr('cy', d => yScale(d.weight))
+            .attr('cy', d => yScale(d.steps))
             .attr('r', 4)
             .attr('fill', 'red');
     }, [entries]);
