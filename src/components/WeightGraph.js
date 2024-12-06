@@ -12,7 +12,9 @@ const WeightGraph = ({ entries }) => {
     const formattedData = entries.map(entry => ({
       date: new Date(entry.date),
       weight: parseFloat(entry.weight),
-    }));
+    }))
+    .sort((a, b) => a.date - b.date); // Sort entries by date (ascending order)
+
 
     // Set dimensions
     const width = 600;
@@ -49,16 +51,16 @@ const WeightGraph = ({ entries }) => {
       .attr('transform', `translate(${margin.left},0)`)
       .call(d3.axisLeft(yScale));
 
-    // Add line
-    svg.append('path')
-      .datum(formattedData)
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 2)
-      .attr('d', d3.line()
-        .x(d => xScale(d.date))
-        .y(d => yScale(d.weight))
-      );
+     // Add line
+     svg.append('path')
+     .datum(formattedData)
+     .attr('fill', 'none')
+     .attr('stroke', 'steelblue')
+     .attr('stroke-width', 2)
+     .attr('d', d3.line()
+         .x(d => xScale(d.date))
+         .y(d => yScale(d.weight))
+     );
 
     //X-Axis Label
     svg.append('text')
@@ -81,7 +83,7 @@ const WeightGraph = ({ entries }) => {
     svg.append("text")
       .attr("class", "chart-title")
       .attr("x", width / 2)
-      .attr("y", margin.top -7)
+      .attr("y", margin.top - 7)
       .attr("text-anchor", "middle")
       .text("Graph of Entered Weight's");
 
