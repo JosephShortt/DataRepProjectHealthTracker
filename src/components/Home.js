@@ -1,6 +1,8 @@
 import WeightGraph from "./WeightGraph";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card'; //Importing card component from bootstrap
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -22,13 +24,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Home</h1>
-      {/* Display the WeightGraph with the fetched data */}
-      <WeightGraph entries={data} />
+    <div className="container">
+      <h1 className="text-center mt-4">Home Page</h1>
+      <Card className="mt-4">
+        <Card.Body>
+          <footer>Graph of Entered weights</footer>
+          {/* Display the WeightGraph with the fetched data */}
+          <WeightGraph entries={data} />
+        </Card.Body>
+      </Card>
     </div>
   );
 };
 
-  
-  export default Home;
+
+export default Home;

@@ -26,20 +26,20 @@ function EntryItem(props) {
     <div>
       <Card>
         {/* Card header displays the movie title */}
-        <Card.Header>Steps: {props.myEntry.steps}</Card.Header>
+        <Card.Header>Date: {props.myEntry.date}</Card.Header>
         {/* Card body displays the movies image and year */}
         <Card.Body>
           <blockquote className="blockquote mb-0">
+            <footer>Steps: {props.myEntry.steps}</footer>
             <footer>Distance(km): {props.myEntry.distance}</footer>
             <footer>Weight(kg): {props.myEntry.weight}</footer>
             <footer>Calories Burned: {props.myEntry.caloriesOut}</footer>
             <footer>Calories consumed: {props.myEntry.caloriesIn}</footer>
-            <footer>Date: : {props.myEntry.date}</footer>
-
+            <footer>Date: {props.myEntry.date}</footer>
           </blockquote>
         </Card.Body>
-        <Link  to={"/update/" + props.myEntry._id} className="btn btn-success w-25">Update</Link>
-        <Button type="button"   className="btn btn-danger w-25" onClick={handleDelete}>Delete</Button>
+        <Link to={"/update/" + props.myEntry._id} className="btn btn-success w-25">Update</Link>
+        <Button type="button" className="btn btn-danger w-25" onClick={handleDelete}>Delete</Button>
       </Card>
     </div>
   );
