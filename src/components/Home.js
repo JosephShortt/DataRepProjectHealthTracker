@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card'; //Importing card component from bootstrap
+import StepsGraph from "./StepsGraph";
+import { CardHeader, CardTitle } from "react-bootstrap";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -27,10 +29,18 @@ const Home = () => {
     <div className="container">
       <h1 className="text-center mt-4">Home Page</h1>
       <Card className="mt-4">
+        <CardHeader>Graph of Weight Over Time</CardHeader>
         <Card.Body>
-          <footer>Graph of Entered weights</footer>
           {/* Display the WeightGraph with the fetched data */}
           <WeightGraph entries={data} />
+        </Card.Body>
+      </Card>
+
+      <Card className="mt-4">
+      <CardHeader>Graph of Steps Over Time</CardHeader>
+        <Card.Body>
+          {/* Display the WeightGraph with the fetched data */}
+          <StepsGraph entries={data} />
         </Card.Body>
       </Card>
     </div>
