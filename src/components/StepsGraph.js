@@ -18,6 +18,7 @@ const StepsGraph = ({ entries }) => {
         const height = 400;
         const margin = { top: 20, right: 30, bottom: 70, left: 70 };
 
+        const averageSteps = formattedData.reduce((sum, entry) => sum + entry.steps, 0) / formattedData.length;
 
         // Set scales
         const xScale = d3
@@ -62,25 +63,22 @@ const StepsGraph = ({ entries }) => {
             .attr('height', d => height - margin.bottom - yScale(d.steps)) // Bar height
             .attr("fill", "#69b3a2")
 
-
-
-
         //X-Axis Label
         svg.append('text')
-            .attr('x', width / 2) 
-            .attr('y', height - margin.bottom + 40) 
-            .attr('text-anchor', 'middle') 
-            .style('font-size', '12px') 
-            .text('Date'); 
+            .attr('x', width / 2)
+            .attr('y', height - margin.bottom + 40)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '12px')
+            .text('Date');
 
         // Add Y-axis label
         svg.append('text')
             .attr('x', -(height / 2))
-            .attr('y', margin.left - 50) 
-            .attr('transform', 'rotate(-90)') 
-            .attr('text-anchor', 'middle') 
-            .style('font-size', '12px') 
-            .text('Num Of Steps'); 
+            .attr('y', margin.left - 50)
+            .attr('transform', 'rotate(-90)')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '12px')
+            .text('Num Of Steps');
 
         // Add chart title
         svg.append("text")
@@ -90,15 +88,16 @@ const StepsGraph = ({ entries }) => {
             .attr("text-anchor", "middle")
             .text("Graph of Entered Steps");
 
-        // Add points
-        svg.selectAll('circle')
-            .data(formattedData)
-            .enter()
-            .append('circle')
-            .attr('cx', d => xScale(d.date))
-            .attr('cy', d => yScale(d.steps))
-            .attr('r', 4)
-            .attr('fill', 'red');
+        // Display the average steps
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height - margin.bottom - 20) // Place it just above the x-axis
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("font-weight", "bold")
+            .text(`Average Steps: ${averageSteps.toFixed(2)}`);
+
+
     }, [entries]);
 
     return <svg ref={svgRef}></svg>;

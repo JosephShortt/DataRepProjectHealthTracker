@@ -49,13 +49,16 @@ const WeightGraph = ({ entries }) => {
 
     svg.append('g')
       .attr('transform', `translate(${margin.left},0)`)
-      .call(d3.axisLeft(yScale));
+      .call(d3.axisLeft(yScale))
+      .call(g => g.selectAll(".tick line").clone()
+          .attr("x2", width - margin.left - margin.right)
+          .attr("stroke-opacity", 0.1))
 
      // Add line
      svg.append('path')
      .datum(formattedData)
      .attr('fill', 'none')
-     .attr('stroke', 'steelblue')
+     .attr('stroke', 'rgb(	57, 255, 20)')
      .attr('stroke-width', 2)
      .attr('d', d3.line()
          .x(d => xScale(d.date))
