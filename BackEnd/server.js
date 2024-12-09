@@ -40,10 +40,7 @@ app.get('/api/entries', async (req, res) => {
   res.json({ entries });
 });
 
-app.get('/api/entries/:id', async (req, res) => {
-  const entry = await EntryModel.findById(req.params.id);
-  res.json(entry);
-});
+
 
 app.get('/api/entries/:id', async (req, res) => {
   const { id } = req.params;
