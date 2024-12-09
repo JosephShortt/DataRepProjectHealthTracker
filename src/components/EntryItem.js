@@ -7,17 +7,25 @@ import axios from "axios";
 function EntryItem(props) {
   useEffect(() => {
     console.log("Entry Item:", props.myEntry);
-  }, [props.myentry]); 
+  }, [props.myentry]);
 
   const handleDelete = (e) => {
     e.preventDefault();
     axios.delete('http://localhost:4000/api/entry/' + props.myEntry._id)
       .then(() => {
-        props.Reload(); 
+        props.Reload();
       })
       .catch((error) => {
         console.error("Error deleting entry:", error);
       });
+  };
+
+  const calculateDaysAgo = (entryDate) => {
+    const today = new Date(); // Current date
+    const entry = new Date(entryDate); // Convert entry date string to Date object
+    const differenceInTime = today - entry; // Difference in milliseconds
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+    return differenceInDays;
   };
 
   return (
@@ -36,6 +44,9 @@ function EntryItem(props) {
         </Card.Body>
         <Link to={"/update/" + props.myEntry._id} className="btn btn-success w-25">Update</Link>
         <Button type="button" className="btn btn-danger w-25" onClick={handleDelete}>Delete</Button>
+        <Card.Footer>
+          {`Entry was made ${calculateDaysAgo(props.myEntry.date)} days ago`}
+        </Card.Footer>
       </Card>
     </div>
   );

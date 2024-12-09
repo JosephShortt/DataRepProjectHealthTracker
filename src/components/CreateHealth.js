@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Card from 'react-bootstrap/Card';
 
 
 function AddHealthData() {
@@ -31,66 +32,73 @@ function AddHealthData() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Enter number of steps walked: </label>
-          <input type="text"
-            className="form-control"
-            value={steps}
-            onChange={(e) => { setSteps(e.target.value) }}
-          />
-        </div>
+    <div className="position-absolute top-50 start-50 translate-middle w-25 p-3">
+      <Card>
+        <Card.Body>
+          <Card.Header>Please enter Details:</Card.Header>
+          <blockquote className="blockquote mb-0">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Enter number of steps walked: </label>
+                <input type="text"
+                  className="form-control"
+                  value={steps}
+                  onChange={(e) => { setSteps(e.target.value) }}
+                />
+              </div>
 
-        <div className="form-group">
-          <label>Enter Distance Covered(km): </label>
-          <input type="text"
-            className="form-control"
-            value={distance}
-            onChange={(e) => { setDistance(e.target.value) }}
-          />
-        </div>
+              <div className="form-group">
+                <label>Enter Distance Covered(km): </label>
+                <input type="text"
+                  className="form-control"
+                  value={distance}
+                  onChange={(e) => { setDistance(e.target.value) }}
+                />
+              </div>
 
-        <div className="form-group">
-          <label>Enter Weight(kg): </label>
-          <input type="text"
-            className="form-control"
-            value={weight}
-            onChange={(e) => { setWeight(e.target.value) }}
-          />
-        </div>
+              <div className="form-group">
+                <label>Enter Weight(kg): </label>
+                <input type="text"
+                  className="form-control"
+                  value={weight}
+                  onChange={(e) => { setWeight(e.target.value) }}
+                />
+              </div>
 
-        <div className="form-group">
-          <label>Enter Calories Consumed: </label>
-          <input type="text"
-            className="form-control"
-            value={caloriesIn}
-            onChange={(e) => { setCaloriesIn(e.target.value) }}
-          />
-        </div>
+              <div className="form-group">
+                <label>Enter Calories Consumed: </label>
+                <input type="text"
+                  className="form-control"
+                  value={caloriesIn}
+                  onChange={(e) => { setCaloriesIn(e.target.value) }}
+                />
+              </div>
 
-        <div className="form-group">
-          <label>Enter Calories Burned: </label>
-          <input type="text"
-            className="form-control"
-            value={caloriesOut}
-            onChange={(e) => { setCaloriesOut(e.target.value) }}
-          />
-        </div>
+              <div className="form-group">
+                <label>Enter Calories Burned: </label>
+                <input type="text"
+                  className="form-control"
+                  value={caloriesOut}
+                  onChange={(e) => { setCaloriesOut(e.target.value) }}
+                />
+              </div>
 
-        <div>
-        <label for="date">Enter Date</label>
-        <input class="form-control" 
-          type="date"
-          value={date}
-          onChange={(e) => {setDate(e.target.value)}}
-        />
-        </div>
+              <div>
+                <label for="date">Enter Date</label>
+                <input class="form-control"
+                  type="date"
+                  value={date}
+                  onChange={(e) => { setDate(e.target.value) }}
+                />
+              </div>
 
-        <input type="submit" value="Enter Health Data" />
-      </form>
+              <button type="submit" class="btn btn-primary">Enter Health Data</button>
+            </form>
+          </blockquote>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
 
-  export default AddHealthData;
+export default AddHealthData;
