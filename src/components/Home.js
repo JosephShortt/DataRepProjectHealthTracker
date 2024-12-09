@@ -26,8 +26,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h1 className="text-center mt-4">Welcome to the Health Tracker</h1>
+    <div className="container bg-info-subtle">
+      <h1 className="text-center mt-4 text-dark-emphasis">Welcome to the Health Tracker</h1>
       <Card className="mt-4">
         <CardHeader>Graph of Weight Over Time</CardHeader>
         <Card.Body>

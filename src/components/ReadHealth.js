@@ -37,7 +37,7 @@ function ReadHealthData() {
 
 
   return (
-    <div>
+    <div className=" bg-info-subtle">
       <form onSubmit={handleSubmit} className="form-inline my-2 my-lg-0">
         <input className="form-control mr-sm-2" type="search" placeholder="Search Entry by ID" aria-label="Search" 
         value={searchText} onChange={(e) => setSearchText(e.target.value)} />

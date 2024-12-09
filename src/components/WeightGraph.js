@@ -98,7 +98,7 @@ const WeightGraph = ({ entries }) => {
       .attr('cx', d => xScale(d.date))
       .attr('cy', d => yScale(d.weight))
       .attr('r', 4)
-      .attr('fill', 'red');
+      .attr('fill', 'green');
 
   }, [entries]); // Re-run when entries change
 
