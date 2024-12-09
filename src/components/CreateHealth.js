@@ -32,7 +32,6 @@ function AddHealthData() {
 
   return (
     <div>
-      <h2>This is my Create Component.</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Enter number of steps walked: </label>

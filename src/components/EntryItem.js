@@ -7,15 +7,13 @@ import axios from "axios";
 function EntryItem(props) {
   useEffect(() => {
     console.log("Entry Item:", props.myEntry);
-  }, [props.myentry]); // Only run this effect when the mymovie prop changes
-  //Creates a bootsrap card that displays the movie poster, year
+  }, [props.myentry]); 
 
   const handleDelete = (e) => {
     e.preventDefault();
-    //Deletes the movie with the given ID using axios.deleted
     axios.delete('http://localhost:4000/api/entry/' + props.myEntry._id)
       .then(() => {
-        props.Reload(); // Refresh the movie list after deletion
+        props.Reload(); 
       })
       .catch((error) => {
         console.error("Error deleting entry:", error);
@@ -25,9 +23,7 @@ function EntryItem(props) {
   return (
     <div>
       <Card>
-        {/* Card header displays the movie title */}
         <Card.Header>Date: {props.myEntry.date}</Card.Header>
-        {/* Card body displays the movies image and year */}
         <Card.Body>
           <blockquote className="blockquote mb-0">
             <footer>Steps: {props.myEntry.steps}</footer>
@@ -45,5 +41,4 @@ function EntryItem(props) {
   );
 }
 
-//Exporting th emovie item to be used in movies
 export default EntryItem;

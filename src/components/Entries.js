@@ -13,5 +13,4 @@ const Entries = (props) => {
       </Row>
     );
   };
-//Exporting the movies component to be used in read.js
 export default Entries;

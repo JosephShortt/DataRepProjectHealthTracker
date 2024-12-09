@@ -64,20 +64,20 @@ const WeightGraph = ({ entries }) => {
 
     //X-Axis Label
     svg.append('text')
-      .attr('x', width / 2) // Center the label horizontally
-      .attr('y', height - margin.bottom + 40) // Position below the X-axis
-      .attr('text-anchor', 'middle') // Center the text
-      .style('font-size', '12px') // Optional: Adjust font size
-      .text('Date'); // Label text
+      .attr('x', width / 2)
+      .attr('y', height - margin.bottom + 40) 
+      .attr('text-anchor', 'middle') 
+      .style('font-size', '12px') 
+      .text('Date'); 
 
     // Add Y-axis label
     svg.append('text')
       .attr('x', -(height / 2))
-      .attr('y', margin.left - 50) // Position to the left of the Y-axis
-      .attr('transform', 'rotate(-90)') // Rotate the text for vertical orientation
-      .attr('text-anchor', 'middle') // Center the text
-      .style('font-size', '12px') // Optional: Adjust font size
-      .text('Weight (kg)'); // Label text
+      .attr('y', margin.left - 50) 
+      .attr('transform', 'rotate(-90)') 
+      .attr('text-anchor', 'middle') 
+      .style('font-size', '12px') 
+      .text('Weight (kg)'); 
 
     // Add chart title
     svg.append("text")

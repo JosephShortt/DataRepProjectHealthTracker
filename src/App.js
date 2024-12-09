@@ -5,6 +5,7 @@ import Home from './components/Home';
 import AddHealthData from './components/CreateHealth';
 import ReadHealthData from './components/ReadHealth';
 import Update from './components/update';
+import SearchByID from './components/SearchByID';
 function App() {
   return (
     <Router>
@@ -14,7 +15,8 @@ function App() {
       <Route path="/addHealth" element={<AddHealthData/>} />
       <Route path="/readHealth" element={<ReadHealthData/>} />
       <Route path='/update/:id' element={<Update />} />
-
+      <Route path="/" element={<ReadHealthData />} />
+      <Route path="/entry/:id" element={<SearchByID />} />
     </Routes>
   </Router>
   );
