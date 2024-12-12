@@ -8,7 +8,7 @@ import { Card } from 'react-bootstrap';
 
 export default function  (props) {
   //extracts the id from the url
-  let { id } = useParams();
+  const { id } = useParams();
   //useStates for each entry detail
   const [steps, setSteps] = useState('');
   const [distance, setDistance] = useState('');

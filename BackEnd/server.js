@@ -70,10 +70,18 @@ app.get('/api/entries/:id', async (req, res) => {
 });
 
 //handles put request to update entry
-app.put('/api/entry/:id', async (req, res) => {
-  let entry = await EntryModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.send(entry);
+app.get('/api/entry/:id', async (req, res) => {
+  try {
+    const entry = await EntryModel.findById(req.params.id);
+    if (!entry) {
+      return res.status(404).send({ message: 'Entry not found' });
+    }
+    res.send(entry);
+  } catch (error) {
+    res.status(500).send({ message: 'Server error' });
+  }
 });
+
 
 //Handles delete request
 app.delete('/api/entry/:id', async (req, res) => {
