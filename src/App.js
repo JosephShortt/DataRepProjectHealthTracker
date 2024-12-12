@@ -1,3 +1,4 @@
+//Importing react routing components, client side components and NavBar
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/Navbar';
 import './App.css';
@@ -6,6 +7,7 @@ import AddHealthData from './components/CreateHealth';
 import ReadHealthData from './components/ReadHealth';
 import Update from './components/update';
 import SearchByID from './components/SearchByID';
+
 function App() {
   return (
     <Router>
@@ -23,3 +25,4 @@ function App() {
 }
 
 export default App;
+ 

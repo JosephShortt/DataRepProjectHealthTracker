@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 
+//EntryItem is passed an entry from Entries 
 function EntryItem(props) {
+  //UseEffect renders thee eentryItem whenever it changes
   useEffect(() => {
     console.log("Entry Item:", props.myEntry);
   }, [props.myentry]);
 
+  //Send delete request to the API and reloads the page with updated entries
   const handleDelete = (e) => {
     e.preventDefault();
     axios.delete('http://localhost:4000/api/entry/' + props.myEntry._id)
@@ -19,7 +22,7 @@ function EntryItem(props) {
         console.error("Error deleting entry:", error);
       });
   };
-
+  //Function to calculate the time in days since the specific entry's creation
   const calculateDaysAgo = (entryDate) => {
     const today = new Date(); // Current date
     const entry = new Date(entryDate); // Convert entry date string to Date object
@@ -45,6 +48,7 @@ function EntryItem(props) {
         <Link to={"/update/" + props.myEntry._id} className="btn btn-success w-25">Update</Link>
         <Button type="button" className="btn btn-danger w-25" onClick={handleDelete}>Delete</Button>
         <Card.Footer>
+          {/* Pass entry date to function*/}
           {`Entry was made ${calculateDaysAgo(props.myEntry.date)} days ago`}
         </Card.Footer>
       </Card>

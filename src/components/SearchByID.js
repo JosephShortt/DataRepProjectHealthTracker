@@ -1,14 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Card } from 'react-bootstrap';
 
 function SearchByID() {
-    const { id } = useParams(); // Extract the ID from the URL
-    const [entry, setEntry] = useState(''); // To store the entry data
+    // Extract the ID from the URL
+    const { id } = useParams(); 
+    const [entry, setEntry] = useState('');
 
+    //fetches the data for thee entry given the search text
     useEffect(() => {
         axios.get(`http://localhost:4000/api/entries/${id}`)
             .then((response) => {
@@ -17,12 +18,13 @@ function SearchByID() {
             .catch((error) => {
                 console.error('Error fetching entry:', error);
             });
-    }, [id]);
+    }, [id]); 
 
     if (!entry) {
         return <div>No entries matching that ID...</div>;
     }
 
+    //Return the fetched entry in a bootstrap card
     return (
         <div>
             <Card>

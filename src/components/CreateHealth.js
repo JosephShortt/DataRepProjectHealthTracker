@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 
 function AddHealthData() {
+  //Use state hook utilised to set variable values when user types into form 
   const [steps, setSteps] = useState('');
   const [distance, setDistance] = useState('');
   const [weight, setWeight] = useState('');
@@ -12,12 +13,13 @@ function AddHealthData() {
   const [date, setDate] = useState('');
 
 
-
+  //Handles submission of forms: Logs the values, Stores entry to be sent to entries DB
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`Steps: ${steps}, Distance: ${distance}, Weight: ${weight}, CaloriesIn: ${caloriesIn}, CaloriesOut: ${caloriesOut}, Date: ${date}`);
 
     const entry = {
+      //Key:Value pairs
       steps: steps,
       distance: distance,
       weight: weight,
@@ -25,14 +27,17 @@ function AddHealthData() {
       caloriesOut: caloriesOut,
       date: date
     };
-
+    //Post request to server api which adds entry to the db
     axios.post('http://localhost:4000/api/entries', entry)
+      //Logs server response 
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   }
 
   return (
+    //Bootsrap positonal adjustments
     <div className="position-absolute top-50 start-50 translate-middle w-25 p-3  bg-info-subtle">
+      {/*Returns Bootstrap card to display for inmput*/}
       <Card>
         <Card.Body>
           <Card.Header>Please enter Details:</Card.Header>
@@ -43,6 +48,7 @@ function AddHealthData() {
                 <input type="text"
                   className="form-control"
                   value={steps}
+                  //Sets steps to entered value
                   onChange={(e) => { setSteps(e.target.value) }}
                 />
               </div>
@@ -91,7 +97,7 @@ function AddHealthData() {
                   onChange={(e) => { setDate(e.target.value) }}
                 />
               </div>
-
+              {/*When button is pressed, onsubmit is called and entered values are sent to db */}
               <button type="submit" class="btn btn-primary">Enter Health Data</button>
             </form>
           </blockquote>

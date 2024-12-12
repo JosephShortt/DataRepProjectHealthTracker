@@ -3,15 +3,18 @@ import React, { useEffect, useRef } from 'react';
 
 
 const WeightGraph = ({ entries }) => {
+  //Svg reference object so d3 can reference the DOM element directly
   const svgRef = useRef();
-
+  
+  //React UseEffect is used to handle entries changing
   useEffect(() => {
     if (!entries) return
 
     // Format data
     const formattedData = entries.map(entry => ({
+      //String to date format for d3 processing
       date: new Date(entry.date),
-      weight: parseFloat(entry.weight),
+      weight: entry.weight,
     }))
     .sort((a, b) => a.date - b.date); // Sort entries by date (ascending order)
 
@@ -23,23 +26,36 @@ const WeightGraph = ({ entries }) => {
 
     // Set scales
     const xScale = d3
+      //Uses d3 scaletime to define the scaling factor for the graph
       .scaleTime()
-      .domain(d3.extent(formattedData, d => d.date)) // Min and max of dates
+      //retrieves dates from entries and establishes the minimum and maximum dates from the array
+      .domain(d3.extent(formattedData, d => d.date)) 
+      //Allows d3 to map the scales to the range of pixel values on the graphs x axis
       .range([margin.left, width - margin.right]);
 
     const yScale = d3
+    //Uses Scale Linear to construct the scale for the Y-Axis
+    //.domain is used to establish the range given the max weight and sets the min to 0
       .scaleLinear()
-      .domain([0, d3.max(formattedData, d => d.weight) + 5]) // Padding above the max weight
+      .domain([0, d3.max(formattedData, d => d.weight) + 5])
       .range([height - margin.bottom, margin.top]);
 
-    // Create SVG
+    // Creates svg using d3.select on the reference value to the graph DOM element
+    //Allows d3 to persist across multiple renders
     const svg = d3.select(svgRef.current);
+
     svg.selectAll("*").remove(); // Clear previous renders
+
     svg
       .attr('width', width)
       .attr('height', height);
 
-    // Add axes
+    /* 
+    Adds group element to svg x axis
+    Transforms to the horizontal bottom of the graph
+    call function sets sxis bottom to the defined xScale
+    Formats/tranforms date 
+    */
     svg.append('g')
       .attr('transform', `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat('%Y-%m-%d')))
@@ -47,6 +63,7 @@ const WeightGraph = ({ entries }) => {
       .attr("transform", "rotate(-45)")
       .style("text-anchor", "end");
 
+    //Y-Axis
     svg.append('g')
       .attr('transform', `translate(${margin.left},0)`)
       .call(d3.axisLeft(yScale))
@@ -56,10 +73,12 @@ const WeightGraph = ({ entries }) => {
 
      // Add line
      svg.append('path')
+     //Establishes line for entries
      .datum(formattedData)
      .attr('fill', 'none')
      .attr('stroke', 'rgb(	57, 255, 20)')
      .attr('stroke-width', 2)
+     //Maps the line to pixels given xy scales
      .attr('d', d3.line()
          .x(d => xScale(d.date))
          .y(d => yScale(d.weight))
@@ -95,12 +114,14 @@ const WeightGraph = ({ entries }) => {
       .data(formattedData)
       .enter()
       .append('circle')
+      //Sets x and y co-ordinates for points to be drawn
       .attr('cx', d => xScale(d.date))
       .attr('cy', d => yScale(d.weight))
+      //radius
       .attr('r', 4)
       .attr('fill', 'green');
 
-  }, [entries]); // Re-run when entries change
+  }, [entries]); // Entries is passed to useEffect function to re-run if entries is changed
 
   return <svg ref={svgRef}></svg>;
 };

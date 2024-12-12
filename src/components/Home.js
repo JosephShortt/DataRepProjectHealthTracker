@@ -1,18 +1,21 @@
+//import steps and weight graph's
 import WeightGraph from "./WeightGraph";
+import StepsGraph from "./StepsGraph";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card'; //Importing card component from bootstrap
-import StepsGraph from "./StepsGraph";
 import { CardHeader, CardTitle } from "react-bootstrap";
 
 const Home = () => {
+  //Defines useState hook to hold entries array
   const [data, setData] = useState([]);
 
   // Reload data from the server
   const Reload = () => {
-    axios
-      .get("http://localhost:4000/api/entries")
+    //Requests entries from server api
+    axios.get("http://localhost:4000/api/entries")
       .then((response) => {
         setData(response.data.entries); // Set the data state with the fetched entries
       })
@@ -39,7 +42,7 @@ const Home = () => {
       <Card className="mt-4">
       <CardHeader>Graph of Steps Over Time</CardHeader>
         <Card.Body>
-          {/* Display the WeightGraph with the fetched data */}
+          {/* Display the StepsGraph with the fetched data */}
           <StepsGraph entries={data} />
         </Card.Body>
       </Card>

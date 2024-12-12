@@ -1,5 +1,8 @@
 const express = require('express'); // Import the express framework
+
+//Creating an instance of express application
 const app = express();
+
 const port = 4000;
 
 // Enable CORS (Cross-Origin Resource Sharing)
@@ -19,29 +22,32 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // Enable URL-encoded data parsing
 app.use(bodyParser.json()); // Enable JSON data parsing
 
+//Instance of mongoose to define schema for data
 const mongoose = require('mongoose');
-//Connect to mongoose db using specific string
+
+//Connect mongoose to mongo database
 mongoose.connect('mongodb+srv://admin:admin@cluster0.jbjg9.mongodb.net/MyHealthTrackerDB');
 
+//Defines Schema for entries
 const entrySchema = new mongoose.Schema({
-  steps: String,
-  distance: String,
-  weight: String,
-  caloriesIn: String,
-  caloriesOut: String,
+  steps: Number,
+  distance: Number,
+  weight: Number,
+  caloriesIn: Number,
+  caloriesOut: Number,
   date: String
 
 });
+//Define entry model using the schema
 const EntryModel = new mongoose.model('myEntries', entrySchema);
 
-
+//Handles get requests to return json of all entries
 app.get('/api/entries', async (req, res) => {
-  const entries = await EntryModel.find({});
+  const entries = await EntryModel.find({});  
   res.json({ entries });
 });
 
-
-
+//Handles get requests to return specific entry by its id
 app.get('/api/entries/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -51,6 +57,7 @@ app.get('/api/entries/:id', async (req, res) => {
   }
 
   try {
+      //find by id, uses await before sending the res
       const entry = await EntryModel.findById(id);
       if (!entry) {
           return res.status(404).json({ error: 'Entry not found' });
@@ -62,12 +69,13 @@ app.get('/api/entries/:id', async (req, res) => {
   }
 });
 
+//handles put request to update entry
 app.put('/api/entry/:id', async (req, res) => {
   let entry = await EntryModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.send(entry);
 });
 
-
+//Handles delete request
 app.delete('/api/entry/:id', async (req, res) => {
 
   console.log('Deleting entry with ID:', req.params.id);
@@ -77,7 +85,7 @@ app.delete('/api/entry/:id', async (req, res) => {
 
 });
 
-
+//Handles the creation of entries, stores in database
 app.post('/api/entries', async (req, res) => {
 
   console.log("Entry: " + req.body.Steps);
@@ -87,6 +95,7 @@ app.post('/api/entries', async (req, res) => {
   res.status(201).json({ message: 'Entry created successfully', entry: newEntry });
 
 });
+
 // Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

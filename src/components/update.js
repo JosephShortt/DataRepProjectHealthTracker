@@ -5,8 +5,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Card } from 'react-bootstrap';
-export default function Update(props) {
+
+export default function  (props) {
+  //extracts the id from the url
   let { id } = useParams();
+  //useStates for each entry detail
   const [steps, setSteps] = useState('');
   const [distance, setDistance] = useState('');
   const [weight, setWeight] = useState('');
@@ -31,6 +34,7 @@ export default function Update(props) {
       });
   }, [id]);
 
+  //when user updates an entry, it ovewrites the existing entry with new details
   const handleSubmit = (event) => {
     event.preventDefault();
     const newEntry = { id, steps, distance, weight, caloriesIn, caloriesOut, date };
@@ -41,6 +45,7 @@ export default function Update(props) {
       });
   }
 
+  //Update entry details form
   return (
     <div className="position-absolute top-50 start-50 translate-middle w-25 p-3">
       <Card>

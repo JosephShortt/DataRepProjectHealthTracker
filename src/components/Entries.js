@@ -3,10 +3,12 @@ import { Row, Col } from 'react-bootstrap'; // Import Bootstrap grid components
 
 const Entries = (props) => {
     return (
+      //Renders entries in a bootstrap grid
       <Row>
+        {/*For each entry, render a column*/}
         {props.myEntries.map((entry) => (
           <Col md={4} key={entry._id} className="mb-4">
-            {/* Each column takes up 4/12 of the row, resulting in 3 columns per row */}
+            {/*3 entries per row*/}
             <EntryItem myEntry={entry} Reload={props.ReloadData} />
           </Col>
         ))}

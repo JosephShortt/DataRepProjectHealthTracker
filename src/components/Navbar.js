@@ -2,10 +2,11 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-//Arrow function that displays navigation bar with pages Home,create and Read
+
+//Arrow function that displays navigation bar
 const NavigationBar = () => {
     return (
-        <Navbar bg="dark" data-bs-theme="dark">
+        <Navbar bg="info" data-bs-theme="dark">
             <Container>
                 <Nav className="me-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
